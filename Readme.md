@@ -1,29 +1,12 @@
-Testing e2e
+Testing API
 ===========
 
-Aplicación para correr pruebas e2e en APIS rest
+Aplicación para correr pruebas en APIS rest
 
-docker-compose.test.yml
-```yml
-version: '2'
-services:
-  server:
-    image: jguillermo/api-test:server
-    ports:
-      - 8056:8056
-  test:
-    image: jguillermo/api-test:latest
-    volumes:
-      - ./app/e2e:/app/e2e
-    depends_on:
-       - server
-    command: "/tmp/wait-for-it.sh server:8056 -t 5 -- npm test"
-```
-
-run
+install
 ---
 ```bash
-docker-compose -f docker-compose.test.yml run --rm test
+make install
 ```
 run
 ---
@@ -33,7 +16,18 @@ make test
 
 Config
 -----
-./e2e/request/config.js
+./application/config.js
 ```js
-process.env.HOST = server_demo;
+process.env.HOST = 'http://server:8056';
+
+
+process.env.DATABASE_MYSQL = 'mysql://root:1234@mysql:3306/dbproject?debug=false';
+
+
+process.env.DATABASE_PG = 'postgresql://postgres:1234@postgres:5432/dbproject';
 ```
+
+hay 3 ejemplos de test: "containner/docker-compose.xxxxx.yml", copiar en contenido y pegarlo dentro de "container/docker-compose.yml"
+ y luego correr los test
+ 
+ quitar el comentario de .skip dentro de los test de database para hacer test a la base de datos
