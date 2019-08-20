@@ -20,7 +20,7 @@ build_server_demo: ## build image de servidor demo : make build_server_demo
 install: ## instala todas las dependencias del proyecto : make install
 	@make build
 	@make build_server_demo
-	@make console a="npm install"
+	@make console a="npm install --only=production"
 
 test: ## Ejecuta el test : make test
 	docker-compose -f container/docker-compose.yml run --rm test
