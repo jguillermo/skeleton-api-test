@@ -48,6 +48,10 @@ network: ## estadpo de la red local : make test
 console: ## ejecuta la consola de la imagen node: make console a="param"
 	@docker run --rm -t -v ${PWD}/application:/application $(IMAGE_TEST) ${a}
 
+## Target Docker tools ##
+docker-kill: ## Execute migrate : make migrate
+	docker rm -f $$(docker ps -aq)
+
 ## Target Help ##
 help:
 	@printf "\033[31m%-16s %-59s %s\033[0m\n" "Target" "Help" "Usage"; \

@@ -1,0 +1,26 @@
+version: '2'
+services:
+
+  server:
+    image: ${IMAGE_SERVER_DEMO}
+    ports:
+      - 8056:8056
+    container_name: server-api
+
+  postgres:
+    image: postgres:9.6.14
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: dbproject
+      POSTGRES_USER: postgres
+    ports:
+      - 5432:5432
+
+  test:
+    image: ${IMAGE_TEST}
+    volumes:
+      - ../application:/application
+    depends_on:
+       - postgres
+       - server
+    command: "/tmp/wait-for-it.sh postgres:5432 -t 50 -- /tmp/runtest.sh"

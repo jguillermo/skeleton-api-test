@@ -2,15 +2,6 @@ const request = require('@request');
 const mysql = require('@mysql');
 
 describe('Load Page', () => {
-
-    test('leer la base de datos', async () => {
-
-        jest.setTimeout(60000);
-
-        let results = await mysql('SELECT 4 + 2 AS solution');
-        expect(results[0].solution).toEqual(6);
-    });
-
     test('carga de la pagina', async () => {
         let { body, statusCode } = await request('GET','/');
         expect(statusCode).toEqual(200);
